@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://b8sj5bptrgmuu"]
+
+[ext_resource type="Script" path="res://Code/Wheel.gd" id="1_ap14n"]
+[ext_resource type="Texture2D" uid="uid://cgu6c8scix1p6" path="res://Images/Car/Wheel.png" id="1_jgcye"]
+[ext_resource type="Shape2D" uid="uid://dp35vhcqdvtdy" path="res://Resources/Wheels/wheel_normal.tres" id="3_drti7"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_sm283"]
+bounce = 0.5
+
+[node name="Wheel" type="RigidBody2D" groups=["player", "wheel"]]
+physics_material_override = SubResource("PhysicsMaterial_sm283")
+script = ExtResource("1_ap14n")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_jgcye")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = ExtResource("3_drti7")

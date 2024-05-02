@@ -1,0 +1,124 @@
+[gd_scene load_steps=10 format=3 uid="uid://b0ma4mrstq217"]
+
+[ext_resource type="Texture2D" uid="uid://n1ip5vefftqp" path="res://Images/Pickups/Coin5.png" id="1_xa3so"]
+[ext_resource type="FontFile" uid="uid://bxppw516q130t" path="res://Images/Pickups/fredoka-one.one-regular.ttf" id="2_j10pc"]
+[ext_resource type="Texture2D" uid="uid://cx0rjiuowwr5q" path="res://Images/Pickups/Fuel.png" id="3_hgmkw"]
+[ext_resource type="Texture2D" uid="uid://bbcoj7p1tm22v" path="res://Images/Other/Alarm.png" id="4_v4a20"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j60dp"]
+bg_color = Color(0.305882, 0.305882, 0.305882, 1)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+expand_margin_left = 7.0
+expand_margin_top = 7.0
+expand_margin_right = 7.0
+expand_margin_bottom = 7.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lotab"]
+bg_color = Color(0.384314, 0.807843, 0.294118, 1)
+border_width_top = 6
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="Animation" id="Animation_ovv5l"]
+resource_name = "alarm"
+loop_mode = 1
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Alarm:modulate:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.5, 1)
+}
+
+[sub_resource type="Animation" id="Animation_dc1fw"]
+resource_name = "idle"
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Alarm:modulate:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qxl6w"]
+_data = {
+"alarm": SubResource("Animation_ovv5l"),
+"idle": SubResource("Animation_dc1fw")
+}
+
+[node name="UI" type="CanvasLayer"]
+
+[node name="Coin" type="TextureRect" parent="."]
+offset_left = 42.0
+offset_top = 174.0
+offset_right = 242.0
+offset_bottom = 374.0
+scale = Vector2(0.550283, 0.567845)
+texture = ExtResource("1_xa3so")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="Coin"]
+layout_mode = 0
+offset_left = 254.415
+offset_top = 75.7249
+offset_right = 294.415
+offset_bottom = 98.7249
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_j10pc")
+theme_override_font_sizes/font_size = 64
+text = "0"
+
+[node name="Fuel" type="TextureRect" parent="."]
+offset_left = 42.0
+offset_top = 36.0
+offset_right = 161.0
+offset_bottom = 151.0
+texture = ExtResource("3_hgmkw")
+expand_mode = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="Fuel"]
+layout_mode = 0
+offset_left = 140.0
+offset_top = 40.0
+offset_right = 418.0
+offset_bottom = 98.0
+theme_override_styles/background = SubResource("StyleBoxFlat_j60dp")
+theme_override_styles/fill = SubResource("StyleBoxFlat_lotab")
+value = 50.0
+show_percentage = false
+
+[node name="Alarm" type="TextureRect" parent="Fuel"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 449.0
+offset_top = 16.0
+offset_right = 489.0
+offset_bottom = 56.0
+scale = Vector2(2.5424, 2.49847)
+texture = ExtResource("4_v4a20")
+expand_mode = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Fuel"]
+libraries = {
+"": SubResource("AnimationLibrary_qxl6w")
+}
