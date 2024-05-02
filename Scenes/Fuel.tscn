@@ -1,0 +1,78 @@
+[gd_scene load_steps=8 format=3 uid="uid://cqx4uimstky0y"]
+
+[ext_resource type="Script" path="res://Code/Fuel.gd" id="1_8b5s0"]
+[ext_resource type="Texture2D" uid="uid://cx0rjiuowwr5q" path="res://Images/Pickups/Fuel.png" id="2_jv8e8"]
+[ext_resource type="AudioStream" uid="uid://depmyenbbnlrr" path="res://Audio/Fuel.wav" id="4_e21pw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kpq5o"]
+size = Vector2(153, 161)
+
+[sub_resource type="Animation" id="Animation_e21e8"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_btxxd"]
+resource_name = "pickup"
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.08, -30, -60, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.6)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:modulate:a")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(-0.03, 0.6)
+}
+tracks/2/type = "audio"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Pickup")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("4_e21pw")
+}],
+"times": PackedFloat32Array(-0.03)
+}
+tracks/2/use_blend = true
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_378r6"]
+_data = {
+"RESET": SubResource("Animation_e21e8"),
+"pickup": SubResource("Animation_btxxd")
+}
+
+[node name="Fuel" type="Area2D"]
+script = ExtResource("1_8b5s0")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.995147)
+texture = ExtResource("2_jv8e8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(3.5, 0.5)
+shape = SubResource("RectangleShape2D_kpq5o")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_378r6")
+}
+
+[node name="Pickup" type="AudioStreamPlayer" parent="."]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

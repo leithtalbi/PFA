@@ -1,0 +1,77 @@
+[gd_scene load_steps=8 format=3 uid="uid://b8s7bqbl7n1uy"]
+
+[ext_resource type="Script" path="res://Code/Coin.gd" id="1_qta58"]
+[ext_resource type="Texture2D" uid="uid://n1ip5vefftqp" path="res://Images/Pickups/Coin5.png" id="2_hny4f"]
+[ext_resource type="AudioStream" uid="uid://cnwnqqvp6nwkv" path="res://Audio/Coin.wav" id="3_4cnne"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ctnxn"]
+radius = 82.0731
+
+[sub_resource type="Animation" id="Animation_e21e8"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_btxxd"]
+resource_name = "pickup"
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.08, -30, -60, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.6)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:modulate:a")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(-0.03, 0.6)
+}
+tracks/2/type = "audio"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Pickup")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("3_4cnne")
+}],
+"times": PackedFloat32Array(0.25)
+}
+tracks/2/use_blend = true
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_378r6"]
+_data = {
+"RESET": SubResource("Animation_e21e8"),
+"pickup": SubResource("Animation_btxxd")
+}
+
+[node name="Coin" type="Area2D"]
+script = ExtResource("1_qta58")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.995147)
+texture = ExtResource("2_hny4f")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ctnxn")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_378r6")
+}
+
+[node name="Pickup" type="AudioStreamPlayer" parent="."]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
