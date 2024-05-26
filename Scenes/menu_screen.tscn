@@ -44,6 +44,7 @@ VScrollBar/styles/scroll_focus = null
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r3j2j"]
 content_margin_top = 50.0
+content_margin_bottom = 50.0
 bg_color = Color(1, 1, 1, 1)
 
 [node name="MenuScreen" type="CanvasLayer"]
