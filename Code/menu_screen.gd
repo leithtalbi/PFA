@@ -14,7 +14,8 @@ func hide_gui():
 	Globals.level_started = true
 
 func _on_start_button_pressed():
-	hide_gui()
+	if !Globals.level_started:
+		hide_gui()
 
 #region Wheel buttons
 func _on_wheel_button_1_pressed():

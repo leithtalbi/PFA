@@ -1,0 +1,99 @@
+[gd_scene load_steps=6 format=3 uid="uid://nr546kfus6fm"]
+
+[ext_resource type="Shader" path="res://Shaders/blur.gdshader" id="1_7q7xe"]
+[ext_resource type="Script" path="res://Code/pause_screen.gd" id="1_tn2kt"]
+[ext_resource type="FontFile" uid="uid://bxppw516q130t" path="res://Images/Pickups/fredoka-one.one-regular.ttf" id="2_buftw"]
+[ext_resource type="StyleBox" uid="uid://bbjsl8tnbleq" path="res://Resources/button_style.tres" id="3_ty1ij"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iu1fy"]
+shader = ExtResource("1_7q7xe")
+shader_parameter/start_color = Color(0.745098, 0.745098, 0.745098, 0.478431)
+shader_parameter/end_color = Color(0.498039, 0.698039, 0.815686, 0.909804)
+shader_parameter/zoom = 1.0
+shader_parameter/blur_amount = 3.0
+shader_parameter/alpha_blend = 1.0
+
+[node name="PauseScreen" type="CanvasLayer"]
+process_mode = 3
+layer = 10
+script = ExtResource("1_tn2kt")
+
+[node name="BlurBG" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_iu1fy")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(1000, 0)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -500.0
+offset_top = -246.0
+offset_right = 500.0
+offset_bottom = 251.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 39
+alignment = 1
+
+[node name="PauseLabel" type="RichTextLabel" parent="VBoxContainer"]
+clip_contents = false
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_colors/default_color = Color(0.290196, 0.431373, 0.545098, 1)
+theme_override_colors/font_shadow_color = Color(0.678431, 0.678431, 0.678431, 1)
+theme_override_colors/font_outline_color = Color(0.341176, 0.780392, 0.733333, 1)
+theme_override_constants/shadow_offset_y = 8
+theme_override_constants/outline_size = 16
+theme_override_fonts/normal_font = ExtResource("2_buftw")
+theme_override_font_sizes/normal_font_size = 128
+bbcode_enabled = true
+text = "[center][pulse freq=1.0 color=#ffffff30 ease=-1.0]Game Paused[/pulse][/center]"
+fit_content = true
+
+[node name="ContinueButton" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_buftw")
+theme_override_font_sizes/font_size = 128
+theme_override_styles/normal = ExtResource("3_ty1ij")
+theme_override_styles/hover = ExtResource("3_ty1ij")
+theme_override_styles/pressed = ExtResource("3_ty1ij")
+theme_override_styles/disabled = ExtResource("3_ty1ij")
+text = "Continue"
+
+[node name="RestartButton" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_buftw")
+theme_override_font_sizes/font_size = 128
+theme_override_styles/normal = ExtResource("3_ty1ij")
+theme_override_styles/hover = ExtResource("3_ty1ij")
+theme_override_styles/pressed = ExtResource("3_ty1ij")
+theme_override_styles/disabled = ExtResource("3_ty1ij")
+text = "Restart"
+
+[node name="QuitButton" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_buftw")
+theme_override_font_sizes/font_size = 128
+theme_override_styles/normal = ExtResource("3_ty1ij")
+theme_override_styles/hover = ExtResource("3_ty1ij")
+theme_override_styles/pressed = ExtResource("3_ty1ij")
+theme_override_styles/disabled = ExtResource("3_ty1ij")
+text = "Quit"
+
+[connection signal="pressed" from="VBoxContainer/ContinueButton" to="." method="_on_continue_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

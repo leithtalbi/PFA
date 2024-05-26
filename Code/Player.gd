@@ -69,7 +69,7 @@ func use_fuel(delta):
 
 func _on_game_over_timer_timeout():
 	#TODO: change into a game over screen and display results for the current course
-	get_tree().reload_current_scene()
+	get_tree().change_scene_to_file("res://Scenes/game_over_screen.tscn")
 
 func customize_vehicle():
 	# Wheels
