@@ -14,6 +14,9 @@ var car_red_texture = ResourceLoader.load("res://Images/Car/RedCar.png")
 # Characters
 var character_blue_head_texture = ResourceLoader.load("res://Images/Characters/Head.png")
 var character_red_head_texture = ResourceLoader.load("res://Images/Characters/Head2.png")
+
+var character_blue_body_texture = ResourceLoader.load("res://Images/Characters/Body.png")
+var character_red_body_texture = ResourceLoader.load("res://Images/Characters/Body2.png")
 #endregion
 
 #region Misc values

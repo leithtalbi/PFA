@@ -91,3 +91,12 @@ func customize_vehicle():
 			car_sprite.texture = customizations_resource.car_blue_texture
 		Globals.car_body_settings.RED:
 			car_sprite.texture = customizations_resource.car_red_texture
+	
+	# Head
+	match Globals.current_character:
+		Globals.character_settings.BLUE:
+			player_head_sprite.texture = customizations_resource.character_blue_head_texture
+			player_body_sprite.texture = customizations_resource.character_blue_body_texture
+		Globals.character_settings.RED:
+			player_head_sprite.texture = customizations_resource.character_red_head_texture
+			player_body_sprite.texture = customizations_resource.character_red_body_texture

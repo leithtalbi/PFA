@@ -10,3 +10,6 @@ var current_wheel = wheel_settings.NORMAL
 
 enum car_body_settings {BLUE, RED}
 var current_car_body = car_body_settings.BLUE
+
+enum character_settings {BLUE, RED}
+var current_character = character_settings.BLUE

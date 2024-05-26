@@ -1,15 +1,17 @@
-[gd_scene load_steps=12 format=3 uid="uid://bkkkvrfxwkney"]
+[gd_scene load_steps=17 format=3 uid="uid://bkkkvrfxwkney"]
 
 [ext_resource type="Shader" path="res://Shaders/blur.gdshader" id="1_gr86x"]
 [ext_resource type="Script" path="res://Code/menu_screen.gd" id="1_keneh"]
 [ext_resource type="Texture2D" uid="uid://cgcho5csgybf" path="res://Images/Other/UIRect.png" id="2_bo03a"]
 [ext_resource type="FontFile" uid="uid://bxppw516q130t" path="res://Images/Pickups/fredoka-one.one-regular.ttf" id="4_wg3l8"]
 [ext_resource type="Texture2D" uid="uid://cgu6c8scix1p6" path="res://Images/Car/Wheel.png" id="5_31x5y"]
+[ext_resource type="Texture2D" uid="uid://doi5ja5yawk5e" path="res://Images/Characters/Head.png" id="5_gk8v7"]
 [ext_resource type="Texture2D" uid="uid://djy4tsanbmcgs" path="res://Images/Car/Car.png" id="5_uimna"]
 [ext_resource type="Texture2D" uid="uid://3ubc0w24pydn" path="res://Images/Car/WheelMedium.png" id="6_dh2tm"]
 [ext_resource type="Texture2D" uid="uid://dc7cema2a5jtt" path="res://Images/Car/RedCar.png" id="6_r0enx"]
+[ext_resource type="Texture2D" uid="uid://d0hplfwya3a4e" path="res://Images/Characters/Head2.png" id="6_ur6oi"]
 [ext_resource type="Texture2D" uid="uid://bfewjyx77anbo" path="res://Images/Car/WheelBig.png" id="7_b7oa6"]
-[ext_resource type="FontFile" uid="uid://cjgo8gf0cp441" path="res://addons/rmsmartshape/assets/SourceCodeVariable-Roman.ttf" id="10_iwi1m"]
+[ext_resource type="StyleBox" uid="uid://bbjsl8tnbleq" path="res://Resources/button_style.tres" id="12_pg3eu"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dovcf"]
 shader = ExtResource("1_gr86x")
@@ -18,6 +20,31 @@ shader_parameter/end_color = Color(0.788235, 0.788235, 0.788235, 0.843137)
 shader_parameter/zoom = 1.0
 shader_parameter/blur_amount = 0.0
 shader_parameter/alpha_blend = 0.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yqcnb"]
+border_width_left = 30
+border_color = Color(0.662745, 0.843137, 0.905882, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="Theme" id="Theme_daog0"]
+VScrollBar/icons/decrement = null
+VScrollBar/icons/decrement_highlight = null
+VScrollBar/icons/decrement_pressed = null
+VScrollBar/icons/increment = null
+VScrollBar/icons/increment_highlight = null
+VScrollBar/icons/increment_pressed = null
+VScrollBar/styles/grabber = null
+VScrollBar/styles/grabber_highlight = null
+VScrollBar/styles/grabber_pressed = null
+VScrollBar/styles/scroll = SubResource("StyleBoxFlat_yqcnb")
+VScrollBar/styles/scroll_focus = null
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r3j2j"]
+content_margin_top = 50.0
+bg_color = Color(1, 1, 1, 1)
 
 [node name="MenuScreen" type="CanvasLayer"]
 layer = 3
@@ -50,16 +77,34 @@ patch_margin_top = 64
 patch_margin_right = 64
 patch_margin_bottom = 64
 
-[node name="MenuLabel" type="RichTextLabel" parent="NinePatchRect"]
+[node name="ScrollContainer" type="ScrollContainer" parent="NinePatchRect"]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -709.5
-offset_top = 32.0
-offset_right = 709.5
-offset_bottom = 257.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 17.0
+offset_top = 20.0
+offset_right = -15.0
+offset_bottom = -20.0
 grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_daog0")
+theme_override_styles/panel = SubResource("StyleBoxFlat_r3j2j")
+follow_focus = true
+scroll_vertical = 10
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="NinePatchRect/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="MenuLabel" type="RichTextLabel" parent="NinePatchRect/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+size_flags_vertical = 3
 theme_override_colors/default_color = Color(0.290196, 0.431373, 0.545098, 1)
 theme_override_colors/font_shadow_color = Color(0.678431, 0.678431, 0.678431, 1)
 theme_override_colors/font_outline_color = Color(0.341176, 0.780392, 0.733333, 1)
@@ -69,79 +114,72 @@ theme_override_fonts/normal_font = ExtResource("4_wg3l8")
 theme_override_font_sizes/normal_font_size = 92
 bbcode_enabled = true
 text = "[center][pulse freq=1.0 color=#ffffff30 ease=-1.0]Customize your vehicle[/pulse][/center]"
+fit_content = true
 
-[node name="CarBodyButtonContainer" type="HBoxContainer" parent="NinePatchRect"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -600.0
-offset_top = -192.0
-offset_right = 600.0
-offset_bottom = 64.0001
-grow_horizontal = 2
-grow_vertical = 2
+[node name="CharacterButtonContainer" type="HBoxContainer" parent="NinePatchRect/ScrollContainer/VBoxContainer"]
+layout_mode = 2
 alignment = 1
 
-[node name="CarButton1" type="TextureButton" parent="NinePatchRect/CarBodyButtonContainer"]
+[node name="CharacterButton1" type="TextureButton" parent="NinePatchRect/ScrollContainer/VBoxContainer/CharacterButtonContainer"]
+layout_mode = 2
+texture_normal = ExtResource("5_gk8v7")
+
+[node name="CharacterButton2" type="TextureButton" parent="NinePatchRect/ScrollContainer/VBoxContainer/CharacterButtonContainer"]
+layout_mode = 2
+texture_normal = ExtResource("6_ur6oi")
+
+[node name="CarBodyButtonContainer" type="HBoxContainer" parent="NinePatchRect/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="CarButton1" type="TextureButton" parent="NinePatchRect/ScrollContainer/VBoxContainer/CarBodyButtonContainer"]
 layout_mode = 2
 texture_normal = ExtResource("5_uimna")
 
-[node name="CarButton2" type="TextureButton" parent="NinePatchRect/CarBodyButtonContainer"]
+[node name="CarButton2" type="TextureButton" parent="NinePatchRect/ScrollContainer/VBoxContainer/CarBodyButtonContainer"]
 layout_mode = 2
 texture_normal = ExtResource("6_r0enx")
 
-[node name="WheelButtonContainer" type="HBoxContainer" parent="NinePatchRect"]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -350.0
-offset_bottom = -94.0
-grow_horizontal = 2
-grow_vertical = 0
+[node name="WheelButtonContainer" type="HBoxContainer" parent="NinePatchRect/ScrollContainer/VBoxContainer"]
+layout_mode = 2
 theme_override_constants/separation = 100
 alignment = 1
 
-[node name="WheelButton1" type="TextureButton" parent="NinePatchRect/WheelButtonContainer"]
+[node name="WheelButton1" type="TextureButton" parent="NinePatchRect/ScrollContainer/VBoxContainer/WheelButtonContainer"]
 custom_minimum_size = Vector2(256, 256)
 layout_mode = 2
 texture_normal = ExtResource("5_31x5y")
 stretch_mode = 3
 
-[node name="WheelButton2" type="TextureButton" parent="NinePatchRect/WheelButtonContainer"]
+[node name="WheelButton2" type="TextureButton" parent="NinePatchRect/ScrollContainer/VBoxContainer/WheelButtonContainer"]
 custom_minimum_size = Vector2(256, 256)
 layout_mode = 2
 texture_normal = ExtResource("6_dh2tm")
 stretch_mode = 3
 
-[node name="WheelButton3" type="TextureButton" parent="NinePatchRect/WheelButtonContainer"]
+[node name="WheelButton3" type="TextureButton" parent="NinePatchRect/ScrollContainer/VBoxContainer/WheelButtonContainer"]
 custom_minimum_size = Vector2(256, 256)
 layout_mode = 2
 texture_normal = ExtResource("7_b7oa6")
 stretch_mode = 3
 
-[node name="Label" type="Label" parent="NinePatchRect"]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -61.0
-offset_bottom = -20.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_colors/font_color = Color(0.443137, 0.443137, 0.443137, 1)
-theme_override_fonts/font = ExtResource("10_iwi1m")
-theme_override_font_sizes/font_size = 32
-text = "Press Enter to continue!"
-horizontal_alignment = 1
+[node name="StartButton" type="Button" parent="NinePatchRect/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("4_wg3l8")
+theme_override_font_sizes/font_size = 128
+theme_override_styles/normal = ExtResource("12_pg3eu")
+theme_override_styles/hover = ExtResource("12_pg3eu")
+theme_override_styles/pressed = ExtResource("12_pg3eu")
+theme_override_styles/disabled = ExtResource("12_pg3eu")
+text = "Start!"
 
-[connection signal="pressed" from="NinePatchRect/CarBodyButtonContainer/CarButton1" to="." method="_on_car_button_1_pressed"]
-[connection signal="pressed" from="NinePatchRect/CarBodyButtonContainer/CarButton2" to="." method="_on_car_button_2_pressed"]
-[connection signal="pressed" from="NinePatchRect/WheelButtonContainer/WheelButton1" to="." method="_on_wheel_button_1_pressed"]
-[connection signal="pressed" from="NinePatchRect/WheelButtonContainer/WheelButton2" to="." method="_on_wheel_button_2_pressed"]
-[connection signal="pressed" from="NinePatchRect/WheelButtonContainer/WheelButton3" to="." method="_on_wheel_button_3_pressed"]
+[connection signal="pressed" from="NinePatchRect/ScrollContainer/VBoxContainer/CharacterButtonContainer/CharacterButton1" to="." method="_on_character_button_1_pressed"]
+[connection signal="pressed" from="NinePatchRect/ScrollContainer/VBoxContainer/CharacterButtonContainer/CharacterButton2" to="." method="_on_character_button_2_pressed"]
+[connection signal="pressed" from="NinePatchRect/ScrollContainer/VBoxContainer/CarBodyButtonContainer/CarButton1" to="." method="_on_car_button_1_pressed"]
+[connection signal="pressed" from="NinePatchRect/ScrollContainer/VBoxContainer/CarBodyButtonContainer/CarButton2" to="." method="_on_car_button_2_pressed"]
+[connection signal="pressed" from="NinePatchRect/ScrollContainer/VBoxContainer/WheelButtonContainer/WheelButton1" to="." method="_on_wheel_button_1_pressed"]
+[connection signal="pressed" from="NinePatchRect/ScrollContainer/VBoxContainer/WheelButtonContainer/WheelButton2" to="." method="_on_wheel_button_2_pressed"]
+[connection signal="pressed" from="NinePatchRect/ScrollContainer/VBoxContainer/WheelButtonContainer/WheelButton3" to="." method="_on_wheel_button_3_pressed"]
+[connection signal="pressed" from="NinePatchRect/ScrollContainer/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
